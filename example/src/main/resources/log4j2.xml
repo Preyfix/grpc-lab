@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info">
+
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d | %-5level | %c [%t] [%X{X-B3-TraceId} | %X{X-B3-SpanId}] - %msg%n" />
+		</Console>
+
+		<Console name="STATS_STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d | %-5level | %m%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Root level="warn" additivity="false">
+			<appender-ref ref="console" />
+			<!-- appender-ref ref="SplunkHttpLog" /-->
+		</Root>
+	</Loggers>
+</Configuration>
