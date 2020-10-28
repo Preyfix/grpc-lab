@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * A gRPC service implementation. When annotated with @Service (or @Component), this implementation
- * will be beanified and used by dfp-core to start a gRPC server (if the property 'grpc.enabled'
+ * will be beanified to start a gRPC server (if the property 'grpc.enabled'
  * or environment variable GRPC_ENABLED is 'true').
  */
 @Service
