@@ -5,28 +5,29 @@ option java_multiple_files = true;
 message YourName {
     string your_name = 1;
 }
+
 message ClueOne {
     string clue = 1;
+    string message = 2;
 }
 
 message ClueTwo {
     string clue = 1;
+    string message = 2;
 }
 
 message ClueThree {
     string clue = 1;
+    string message = 2;
 }
 
 message ClueFour {
-    int32 clue = 1;
+    string clue = 1;
+    string message = 2;
 }
 
-message AllClues {
-    ClueOne clue_one = 1;
-    ClueTwo clue_two = 2;
-    ClueThree clue_three = 3;
-    ClueFour clue_four = 4;
-    YourName your_name = 5;
+message Key {
+    string key = 1;
 }
 
 message FinalSecret {
@@ -38,5 +39,5 @@ service Puzzle {
     rpc endpointOne (ClueOne) returns (ClueTwo);
     rpc endpointTwo (ClueTwo) returns (ClueThree);
     rpc endpointThree (ClueThree) returns (ClueFour);
-    rpc SolvePuzzle (AllClues) returns (FinalSecret);
+    rpc SolvePuzzle (Key) returns (FinalSecret);
 }
