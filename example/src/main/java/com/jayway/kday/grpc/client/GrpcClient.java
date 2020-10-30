@@ -25,15 +25,28 @@ public class GrpcClient {
     private final ManagedChannel channel;
 
     /* The client's target server. */
-//    private String target = "localhost";
-//    private int port = 8074;
-    private String target = "grpc-puzzle-pvufxpciqa-lz.a.run.app";
-    private int port = 443;
+    private String target = "localhost";
+    private int port = 8074;
 
-    private void start(YourName request) {
+//    private String target = "grpc-puzzle-pvufxpciqa-lz.a.run.app";
+//    private int port = 443;
+
+    private void start(YourName yourName) {
         // Sends an assembled request and awaits response.
-        ClueOne response = blockingStub.startHere(request);
-        LOGGER.info("Response received: " + response.getClue() + " - " + response.getMessage());
+        ClueOne clueOne = blockingStub.startHere(yourName);
+        System.out.println(clueOne.getClue() + " - " + clueOne.getMessage());
+
+        ClueTwo clueTwo = blockingStub.endpointOne(clueOne);
+        System.out.println(clueTwo.getClue() + " - " + clueTwo.getMessage());
+
+        ClueThree clueThree = blockingStub.endpointTwo(clueTwo);
+        System.out.println(clueThree.getClue() + " - " + clueThree.getMessage());
+
+        ClueFour clueFour = blockingStub.endpointThree(clueThree);
+        System.out.println(clueFour.getClue() + " - " + clueFour.getMessage());
+
+        FinalSecret finalSecret = blockingStub.solvePuzzle(Key.newBuilder().setKey("developyourcompetenceyoumust").build());
+        System.out.println(finalSecret.getFinalSecret());
     }
 
     private GrpcClient() {
