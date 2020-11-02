@@ -25,11 +25,11 @@ public class GrpcClient {
     private final ManagedChannel channel;
 
     /* The client's target server. */
-    private String target = "localhost";
-    private int port = 8074;
+//    private String target = "localhost";
+//    private int port = 8074;
 
-//    private String target = "grpc-puzzle-pvufxpciqa-lz.a.run.app";
-//    private int port = 443;
+    private String target = "grpc-puzzle-pvufxpciqa-lz.a.run.app";
+    private int port = 443;
 
     private void start(YourName yourName) {
         // Sends an assembled request and awaits response.
@@ -44,6 +44,8 @@ public class GrpcClient {
 
         ClueFour clueFour = blockingStub.endpointThree(clueThree);
         System.out.println(clueFour.getClue() + " - " + clueFour.getMessage());
+
+        // Manually merge the four clues into "developyourcompetenceyoumust" and use it as a key in the final step.
 
         FinalSecret finalSecret = blockingStub.solvePuzzle(Key.newBuilder().setKey("developyourcompetenceyoumust").build());
         System.out.println(finalSecret.getFinalSecret());
