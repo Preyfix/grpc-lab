@@ -1,8 +1,11 @@
 package com.jayway.kday.grpc.client;
 
+import com.jayway.kday.grpc.ClueOne;
 import com.jayway.kday.grpc.Ping;
 import com.jayway.kday.grpc.Pong;
 import com.jayway.kday.grpc.MyServiceGrpc;
+import com.jayway.kday.grpc.PuzzleGrpc;
+import com.jayway.kday.grpc.YourName;
 import io.grpc.ManagedChannel;
 import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
 import org.slf4j.Logger;
@@ -16,23 +19,18 @@ public class GrpcClient {
 
     /* BlockingStubs makes synchronous calls.
     The proto file can be modified to support asynchronous calls. */
-    private final MyServiceGrpc.MyServiceBlockingStub blockingStub;
+    private final PuzzleGrpc.PuzzleBlockingStub blockingStub;
     private final ManagedChannel channel;
 
     /* The client's target server. */
-    private String target = "localhost";
-    private int port = 8074;
-
-    private void ping(Ping request) {
-        // Sends an assembled request and awaits response.
-        Pong response = blockingStub.ping(request);
-        LOGGER.info("Response received: " + response.getAnswer());
-    }
+    private String target = "grpc-puzzle-pvufxpciqa-lz.a.run.app";
+    private int port = 443;
 
     private GrpcClient() {
         LOGGER.info("Creating client with target: " + target + ":" + port);
-        channel = NettyChannelBuilder.forAddress(target, port).usePlaintext().build();
-        blockingStub = MyServiceGrpc.newBlockingStub(channel);
+        channel = NettyChannelBuilder.forAddress(target, port).build();
+//        blockingStub = MyServiceGrpc.newBlockingStub(channel);
+        blockingStub = PuzzleGrpc.newBlockingStub(channel);
     }
 
     private void shutdown() throws InterruptedException {
@@ -43,10 +41,12 @@ public class GrpcClient {
         GrpcClient client = new GrpcClient();
         try {
             // Assembles an RPC call.
-            Ping ping = Ping.newBuilder().setText("Ping!").build();
-            client.ping(ping);
+            YourName yourName = YourName.newBuilder().setYourName("<insert-name>").build();
+            ClueOne clueOne = client.blockingStub.startHere(yourName);
+            System.out.println(clueOne.getClue());
         } finally {
             client.shutdown();
         }
     }
+
 }
