@@ -20,13 +20,13 @@ public class GrpcClient {
     private final PuzzleGrpc.PuzzleBlockingStub blockingStub;
     private final ManagedChannel channel;
 
-    private boolean usePlainText = true;
+    private boolean usePlainText = false;
 
     /* The client's target server. */
     private String targetPlaintext = "localhost";
     private int portPlaintext = 8074;
 
-    private String targetSSL = "grpc-puzzle-pvufxpciqa-lz.a.run.app";
+    private String targetSSL = "grpc-puzzle-kweekend-2021-pvufxpciqa-lz.a.run.app";
     private int portSSL = 443;
 
     private void start(YourName yourName) {
@@ -46,7 +46,8 @@ public class GrpcClient {
         // Manually merge the four clues into "ripjaywaybydevoteam" and use it as a key in the final step.
 
         FinalSecret finalSecret = blockingStub.solvePuzzle(Key.newBuilder().setKey("ripjaywaybydevoteam").build());
-        System.out.println(finalSecret.getSecretPinCode());
+        System.out.println("The PIN code to the treasure chest is: " + finalSecret.getSecretPinCode());
+        System.out.println("Now go forth and claim your prize, champion!");
     }
 
     private GrpcClient() {
@@ -55,7 +56,7 @@ public class GrpcClient {
             channel = NettyChannelBuilder.forAddress(targetPlaintext, portPlaintext).usePlaintext().build();
         }else {
             System.out.println("Creating client with target: " + targetSSL + ":" + portSSL);
-            channel = NettyChannelBuilder.forAddress(targetSSL, portSSL).usePlaintext().build();
+            channel = NettyChannelBuilder.forAddress(targetSSL, portSSL).build();
         }
         blockingStub = PuzzleGrpc.newBlockingStub(channel);
     }
