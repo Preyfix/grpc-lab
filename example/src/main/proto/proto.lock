@@ -91,6 +91,11 @@
                 "id": 1,
                 "name": "secret_pin_code",
                 "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "message",
+                "type": "string"
               }
             ]
           }

@@ -19,12 +19,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class GrpcServerImpl extends PuzzleGrpc.PuzzleImplBase {
 
-    private final String clue1 = "r****y**y*****ot***";
-    private final String clue2 = "**p*a******d*****a*";
-    private final String clue3 = "******w**b**e***e**";
-    private final String clue4 = "*i*j***a**y**v****m";
-    private final String validKey = "ripjaywaybydevoteam";
-    private final String secretPinCode = "1338";
+    private final String clue1 = "*t***w*i****d****e*";
+    private final String clue2 = "s**y******a**l**t**";
+    private final String clue3 = "****a****e*n***s***";
+    private final String clue4 = "**a***h*l*****i***n";
+    private final String validKey = "stayawhileandlisten";
+    private final String secretPinCode = "460";
 
     /**
      * When called, receive clue one.
@@ -112,8 +112,9 @@ public class GrpcServerImpl extends PuzzleGrpc.PuzzleImplBase {
     public void solvePuzzle(Key key, StreamObserver<FinalSecret> responseStreamObserver) {
         if(key.getKey().equals(validKey)){
             FinalSecret secret = FinalSecret.newBuilder()
-                                    .setSecretPinCode(secretPinCode)
-                                    .build();
+                    .setSecretPinCode(secretPinCode)
+                    .setMessage("The PIN code to the treasure chest is: | " + secretPinCode + " | Now go forth and claim your prize, champion!")
+                    .build();
             responseStreamObserver.onNext(secret);
         }
         responseStreamObserver.onCompleted();

@@ -20,7 +20,7 @@ public class GrpcClient {
     private final PuzzleGrpc.PuzzleBlockingStub blockingStub;
     private final ManagedChannel channel;
 
-    private boolean usePlainText = false;
+    private boolean useLocalhost = true;
 
     /* The client's target server. */
     private String targetPlaintext = "localhost";
@@ -43,15 +43,14 @@ public class GrpcClient {
         ClueFour clueFour = blockingStub.endpointThree(clueThree);
         System.out.println(clueFour.getClue() + " - " + clueFour.getMessage());
 
-        // Manually merge the four clues into "ripjaywaybydevoteam" and use it as a key in the final step.
+        // Manually merge the four clues into "stayawhileandlisten" and use it as a key in the final step.
 
-        FinalSecret finalSecret = blockingStub.solvePuzzle(Key.newBuilder().setKey("ripjaywaybydevoteam").build());
-        System.out.println("The PIN code to the treasure chest is: " + finalSecret.getSecretPinCode());
-        System.out.println("Now go forth and claim your prize, champion!");
+        FinalSecret finalSecret = blockingStub.solvePuzzle(Key.newBuilder().setKey("stayawhileandlisten").build());
+        System.out.println(finalSecret.getSecretPinCode() + " - " + finalSecret.getMessage());
     }
 
     private GrpcClient() {
-        if(usePlainText){
+        if(useLocalhost){
             System.out.println("Creating client with target: " + targetPlaintext + ":" + portPlaintext);
             channel = NettyChannelBuilder.forAddress(targetPlaintext, portPlaintext).usePlaintext().build();
         }else {
@@ -69,7 +68,7 @@ public class GrpcClient {
         GrpcClient client = new GrpcClient();
         try {
             // Assembles an RPC call.
-            YourName yourName = YourName.newBuilder().setYourName("Martin Hjelmqvist").build();
+            YourName yourName = YourName.newBuilder().setYourName("").build();
             client.start(yourName);
         } finally {
             client.shutdown();
