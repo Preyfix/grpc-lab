@@ -31,7 +31,7 @@ message Key {
 }
 
 message FinalSecret {
-    string final_secret = 1;
+    string secret_pin_code = 1;
 }
 
 service Puzzle {

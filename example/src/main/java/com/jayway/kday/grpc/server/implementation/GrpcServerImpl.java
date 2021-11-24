@@ -19,12 +19,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class GrpcServerImpl extends PuzzleGrpc.PuzzleImplBase {
 
-    private final String clue1 = "**v***********pe**n****u**s*";
-    private final String clue2 = "***e****ou**o***t***e*******";
-    private final String clue3 = "*e**l**y**rc*******c**o**u**";
-    private final String clue4 = "d****op******m***e***y**m**t";
-    private final String validKey = "developyourcompetenceyoumust";
-    private final String finalSecret = "The cake is a lie.";
+    private final String clue1 = "r****y**y*****ot***";
+    private final String clue2 = "**p*a******d*****a*";
+    private final String clue3 = "******w**b**e***e**";
+    private final String clue4 = "*i*j***a**y**v****m";
+    private final String validKey = "ripjaywaybydevoteam";
+    private final String secretPinCode = "1338";
 
     /**
      * When called, receive clue one.
@@ -36,11 +36,13 @@ public class GrpcServerImpl extends PuzzleGrpc.PuzzleImplBase {
     public void startHere(YourName yourName, StreamObserver<ClueOne> responseStreamObserver) {
         String name = "";
         if(yourName == null || "".equals(yourName.getYourName())){
-            name = "human with no name";
+            name = "unnamed human";
+        }else{
+            name = yourName.getYourName();
         }
         ClueOne clue = ClueOne.newBuilder()
                 .setClue(clue1)
-                .setMessage(String.format(name, "What does this clue mean? Better continue with next endpoint.. Good luck, %s!"))
+                .setMessage(String.format("What does this clue mean? Better continue with next endpoint.. Good luck, %s!", name))
                 .build();
         responseStreamObserver.onNext(clue);
         responseStreamObserver.onCompleted();
@@ -110,7 +112,7 @@ public class GrpcServerImpl extends PuzzleGrpc.PuzzleImplBase {
     public void solvePuzzle(Key key, StreamObserver<FinalSecret> responseStreamObserver) {
         if(key.getKey().equals(validKey)){
             FinalSecret secret = FinalSecret.newBuilder()
-                                    .setFinalSecret(finalSecret)
+                                    .setSecretPinCode(secretPinCode)
                                     .build();
             responseStreamObserver.onNext(secret);
         }

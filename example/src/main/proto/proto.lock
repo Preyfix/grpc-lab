@@ -1,0 +1,142 @@
+{
+  "definitions": [
+    {
+      "protopath": "ProtobufDefinitions.proto",
+      "def": {
+        "messages": [
+          {
+            "name": "YourName",
+            "fields": [
+              {
+                "id": 1,
+                "name": "your_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "ClueOne",
+            "fields": [
+              {
+                "id": 1,
+                "name": "clue",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "message",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "ClueTwo",
+            "fields": [
+              {
+                "id": 1,
+                "name": "clue",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "message",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "ClueThree",
+            "fields": [
+              {
+                "id": 1,
+                "name": "clue",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "message",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "ClueFour",
+            "fields": [
+              {
+                "id": 1,
+                "name": "clue",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "message",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "Key",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "FinalSecret",
+            "fields": [
+              {
+                "id": 1,
+                "name": "secret_pin_code",
+                "type": "string"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "Puzzle",
+            "rpcs": [
+              {
+                "name": "StartHere",
+                "in_type": "YourName",
+                "out_type": "ClueOne"
+              },
+              {
+                "name": "endpointOne",
+                "in_type": "ClueOne",
+                "out_type": "ClueTwo"
+              },
+              {
+                "name": "endpointTwo",
+                "in_type": "ClueTwo",
+                "out_type": "ClueThree"
+              },
+              {
+                "name": "endpointThree",
+                "in_type": "ClueThree",
+                "out_type": "ClueFour"
+              },
+              {
+                "name": "SolvePuzzle",
+                "in_type": "Key",
+                "out_type": "FinalSecret"
+              }
+            ]
+          }
+        ],
+        "package": {
+          "name": "com.jayway.kday.grpc"
+        },
+        "options": [
+          {
+            "name": "java_multiple_files",
+            "value": "true"
+          }
+        ]
+      }
+    }
+  ]
+}

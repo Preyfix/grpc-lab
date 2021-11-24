@@ -10,26 +10,24 @@ import com.jayway.kday.grpc.PuzzleGrpc;
 import com.jayway.kday.grpc.YourName;
 import io.grpc.ManagedChannel;
 import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
 public class GrpcClient {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(GrpcClient.class);
 
     /* BlockingStubs makes synchronous calls.
     The proto file can be modified to support asynchronous calls. */
     private final PuzzleGrpc.PuzzleBlockingStub blockingStub;
     private final ManagedChannel channel;
 
-    /* The client's target server. */
-//    private String target = "localhost";
-//    private int port = 8074;
+    private boolean usePlainText = true;
 
-    private String target = "grpc-puzzle-pvufxpciqa-lz.a.run.app";
-    private int port = 443;
+    /* The client's target server. */
+    private String targetPlaintext = "localhost";
+    private int portPlaintext = 8074;
+
+    private String targetSSL = "grpc-puzzle-pvufxpciqa-lz.a.run.app";
+    private int portSSL = 443;
 
     private void start(YourName yourName) {
         // Sends an assembled request and awaits response.
@@ -45,15 +43,20 @@ public class GrpcClient {
         ClueFour clueFour = blockingStub.endpointThree(clueThree);
         System.out.println(clueFour.getClue() + " - " + clueFour.getMessage());
 
-        // Manually merge the four clues into "developyourcompetenceyoumust" and use it as a key in the final step.
+        // Manually merge the four clues into "ripjaywaybydevoteam" and use it as a key in the final step.
 
-        FinalSecret finalSecret = blockingStub.solvePuzzle(Key.newBuilder().setKey("developyourcompetenceyoumust").build());
-        System.out.println(finalSecret.getFinalSecret());
+        FinalSecret finalSecret = blockingStub.solvePuzzle(Key.newBuilder().setKey("ripjaywaybydevoteam").build());
+        System.out.println(finalSecret.getSecretPinCode());
     }
 
     private GrpcClient() {
-        LOGGER.info("Creating client with target: " + target + ":" + port);
-        channel = NettyChannelBuilder.forAddress(target, port).build();
+        if(usePlainText){
+            System.out.println("Creating client with target: " + targetPlaintext + ":" + portPlaintext);
+            channel = NettyChannelBuilder.forAddress(targetPlaintext, portPlaintext).usePlaintext().build();
+        }else {
+            System.out.println("Creating client with target: " + targetSSL + ":" + portSSL);
+            channel = NettyChannelBuilder.forAddress(targetSSL, portSSL).usePlaintext().build();
+        }
         blockingStub = PuzzleGrpc.newBlockingStub(channel);
     }
 
