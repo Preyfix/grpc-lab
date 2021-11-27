@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1a6ee886-c84d-4de0-b872-dedb70a60787" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/example/src/main/proto/proto.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/main/proto/proto.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/src/main/java/com/jayway/kday/grpc/client/GrpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/main/java/com/jayway/kday/grpc/client/GrpcClient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -315,6 +316,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

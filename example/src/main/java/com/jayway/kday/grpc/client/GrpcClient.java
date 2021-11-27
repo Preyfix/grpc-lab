@@ -20,7 +20,7 @@ public class GrpcClient {
     private final PuzzleGrpc.PuzzleBlockingStub blockingStub;
     private final ManagedChannel channel;
 
-    private boolean useLocalhost = true;
+    private boolean useLocalhost = false;
 
     /* The client's target server. */
     private String targetPlaintext = "localhost";
